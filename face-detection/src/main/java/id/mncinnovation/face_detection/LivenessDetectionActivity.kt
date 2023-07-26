@@ -168,22 +168,7 @@ class LivenessDetectionActivity : BaseCameraActivity(), LivenessDetectionListene
                 speak(getString(R.string.lbl_hold_still_instruction))
             }
 
-            DetectionMode.BLINK -> {
-                tvInstruction.text = getString(R.string.liveness_please_blink)
-                speak(getString(R.string.liveness_please_blink))
-            }
-            DetectionMode.OPEN_MOUTH -> {
-                tvInstruction.text = getString(R.string.liveness_please_open_mouth)
-                speak(getString(R.string.liveness_please_open_mouth))
-            }
-            DetectionMode.SHAKE_HEAD -> {
-                tvInstruction.text = getString(R.string.liveness_please_shake_head)
-                speak(getString(R.string.liveness_please_shake_head))
-            }
-            DetectionMode.SMILE -> {
-                tvInstruction.text = getString(R.string.liveness_please_smile)
-                speak(getString(R.string.liveness_please_smile))
-            }
+            
         }
     }
 

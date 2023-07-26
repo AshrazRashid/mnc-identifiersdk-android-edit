@@ -28,11 +28,8 @@ public class MainActivity extends AppCompatActivity  {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         MNCIdentifier.setDetectionModeSequence(true, Arrays.asList(
-                DetectionMode.HOLD_STILL,
-                DetectionMode.BLINK,
-                DetectionMode.OPEN_MOUTH,
-                DetectionMode.SMILE,
-                DetectionMode.SHAKE_HEAD));
+                DetectionMode.HOLD_STILL
+              ));
         binding.btnScanKtp.setOnClickListener(v ->
             startActivityForResult(new Intent(this, ScanOCRActivity.class), SCAN_KTP_REQUEST_CODE)
         );

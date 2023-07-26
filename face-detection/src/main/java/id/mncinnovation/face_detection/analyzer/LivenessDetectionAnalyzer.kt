@@ -75,9 +75,7 @@ class LivenessDetectionAnalyzer(
         val inputImage = InputImage.fromMediaImage(image.image!!,
             rotationDegrees)
         when (currentDetectionMode()) {
-            DetectionMode.BLINK,
-            DetectionMode.SMILE,
-            DetectionMode.SHAKE_HEAD,
+          
             DetectionMode.HOLD_STILL -> {
                 classificationDetector.process(inputImage)
                     .addOnSuccessListener { faces ->
@@ -123,10 +121,7 @@ class LivenessDetectionAnalyzer(
 
     private fun detectGesture(face: Face, detectionMode: DetectionMode) {
         when (detectionMode) {
-            DetectionMode.BLINK -> detectBlink(face)
-            DetectionMode.SHAKE_HEAD -> detectShakeHead(face)
-            DetectionMode.OPEN_MOUTH -> detectMouthOpen(face)
-            DetectionMode.SMILE -> detectSmile(face)
+           
             DetectionMode.HOLD_STILL -> detectHoldStill(face)
         }
     }
@@ -148,45 +143,7 @@ class LivenessDetectionAnalyzer(
         }
     }
 
-    private fun detectSmile(face: Face){
-        Log.d(TAG, "Smile Probability ${face.smilingProbability}")
-        if (face.smilingProbability?:0f > 0.8f){
-            nextDetection()
-        }
-    }
-
-    private fun detectBlink(face: Face) {
-        Log.d(TAG, "LeftEyeOpenProbability ${face.leftEyeOpenProbability} RightEyeOpenProbability ${face.rightEyeOpenProbability}")
-        if (face.leftEyeOpenProbability != null && face.rightEyeOpenProbability != null) {
-            if (face.leftEyeOpenProbability!! < 0.1f && face.rightEyeOpenProbability!! < 0.1f) {
-                nextDetection()
-            }
-        }
-    }
-
-    private fun detectMouthOpen(face: Face) {
-        val topLip = face.getContour(FaceContour.LOWER_LIP_TOP)
-        val bottomLip = face.getContour(FaceContour.UPPER_LIP_BOTTOM)
-
-        if (topLip != null && bottomLip != null) {
-            val delta = topLip.points[4].y - bottomLip.points[4].y
-            Log.d(TAG, "Delta Lip $delta FaceHeight ${face.boundingBox.height()}")
-            if (delta > 25) {
-                isMouthOpen = true
-            }
-            if (isMouthOpen && delta < 10) {
-                isMouthOpen = false
-                nextDetection()
-            }
-        }
-    }
-
-    private fun detectShakeHead(face: Face) {
-        Log.d(TAG, "HeadEulerAngleY ${face.headEulerAngleY}")
-        if (face.headEulerAngleY > 30 || face.headEulerAngleY < -30) {
-            nextDetection()
-        }
-    }
+  
 
     private fun nextDetection() {
         currentDetectionMode()?.let {
