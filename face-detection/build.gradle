@@ -13,8 +13,6 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -33,8 +31,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-
+    namespace 'id.mncinnovation.face_detection'
 
 
 }
